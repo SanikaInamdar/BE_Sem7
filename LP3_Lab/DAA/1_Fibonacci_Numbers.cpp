@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std;
+
 int recursiveCalls = 0; 
 
 int fibonacciRecursive(int n) {
@@ -34,22 +36,22 @@ int fibonacciIterative(int n) {
 
 int main() {
     int n;
-    std::cout << "Enter the value of n: ";
-    std::cin >> n;
-    std::cout << "Fibonacci series: ";
+    cout << "Enter the value of n: ";
+    cin >> n;
+    cout << "Fibonacci series: ";
     for (int i = 0; i <= n; i++) {
-        std::cout << fibonacciIterative(i) << " ";
+        cout << fibonacciIterative(i) << " ";
     }
 
     recursiveCalls = 0;
-    std::cout << "Fibonacci(" << n << ") using recursive approach = " << fibonacciRecursive(n) << std::endl;
-    std::cout << "Recursive calls: " << recursiveCalls << std::endl;
-    std::cout << "Time complexity of recursive approach: O(2^n)" << std::endl;
+    cout << "Fibonacci(" << n << ") using recursive approach = " << fibonacciRecursive(n) << endl;
+    cout << "Recursive calls: " << recursiveCalls << endl;
+    cout << "Time complexity of recursive approach: O(2^n)" << endl;
 
     iterativeCalls = 0;
-    std::cout << "Fibonacci(" << n << ") using iterative approach = " << fibonacciIterative(n) << std::endl;
-    std::cout << "Iterative calls: " << iterativeCalls << std::endl;
-    std::cout << "Time complexity of iterative approach: O(n)" << std::endl;
+    cout << "Fibonacci(" << n << ") using iterative approach = " << fibonacciIterative(n) << endl;
+    cout << "Iterative calls: " << iterativeCalls << endl;
+    cout << "Time complexity of iterative approach: O(n)" << endl;
 
     return 0;
 }

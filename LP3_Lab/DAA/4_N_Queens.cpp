@@ -1,25 +1,25 @@
 #include <iostream>
 #include <vector>
-
+using namespace std;
 // Size of the chessboard
 const int N = 8;
 
 // Function to print the chessboard
-void printBoard(const std::vector<std::vector<int>>& board) {
+void printBoard(const vector<vector<int>>& board) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             if (board[i][j])
-                std::cout << "Q ";
+                cout << "Q ";
             else
-                std::cout << ". ";
+                cout << ". ";
         }
-        std::cout << "\n";
+        cout << "\n";
     }
-    std::cout << "\n";
+    cout << "\n";
 }
 
 // Function to check if it's safe to place a Queen at board[row][col]
-bool isSafe(const std::vector<std::vector<int>>& board, int row, int col) {
+bool isSafe(const vector<vector<int>>& board, int row, int col) {
     // Check the left side of the current row
     for (int i = 0; i < col; i++) {
         if (board[row][i]) {
@@ -45,7 +45,7 @@ bool isSafe(const std::vector<std::vector<int>>& board, int row, int col) {
 }
 
 // Function to solve N-Queens using backtracking
-bool solveNQueens(std::vector<std::vector<int>>& board, int col) {
+bool solveNQueens(vector<vector<int>>& board, int col) {
     if (col >= N) {
         // All Queens have been successfully placed
         printBoard(board);
@@ -65,13 +65,13 @@ bool solveNQueens(std::vector<std::vector<int>>& board, int col) {
 }
 
 int main() {
-    std::vector<std::vector<int>> board(N, std::vector<int>(N, 0));
+    vector<vector<int>> board(N, vector<int>(N, 0));
 
     // Place the first Queen in the first row (row 0)
     board[0][0] = 1;
 
     if (!solveNQueens(board, 1)) {
-        std::cout << "No solution exists." << std::endl;
+        cout << "No solution exists." << endl;
     }
 
     return 0;
