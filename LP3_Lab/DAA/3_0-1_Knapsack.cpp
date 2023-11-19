@@ -33,3 +33,8 @@ int main() {
 
     return 0;
 }
+// Time Complexity: O(N*W)
+
+// Reason: There are N*W states therefore at max ‘N*W’ new problems will be solved.
+
+// Space Complexity: O(N*W) + O(N)

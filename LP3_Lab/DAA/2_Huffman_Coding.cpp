@@ -13,16 +13,17 @@ class MinHeapNode
 public:
 	// One of the input characters
 	char data;
-
 	// Frequency of the character
 	int freq;
-
-	// Left and right child
-	MinHeapNode *left, *right;
+	// Left child
+	MinHeapNode *left;
+	// Right child
+	MinHeapNode *right;
 
 	MinHeapNode(char data, int freq)
 	{
-		left = right = nullptr;
+		left=NULL;
+		right=NULL;
 		this->data = data;
 		this->freq = freq;
 	}
@@ -103,3 +104,8 @@ int main()
 
 	return 0;
 }
+
+// Best Case Time Complexity: O(n)
+// Average Case Time Complexity: O(n log n)
+// Worst Case Time Complexity: O(n log n)
+// Space Complexity: O(n)
