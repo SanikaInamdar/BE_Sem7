@@ -1,78 +1,95 @@
 #include <iostream>
-#include <vector>
-#include <ctime>
 #include <cstdlib>
+#include <ctime>
+#include <vector>
+
 using namespace std;
 
-// Function to partition the array
+// Function to partition the array and return the index of the pivot element
 int partition(vector<int> &arr, int low, int high) {
-    int pivot = arr[high];
-    int i = (low - 1);
+    int pivot = arr[low];
+    int i = low + 1;
+    int j = high;
 
-    for (int j = low; j <= high - 1; j++) {
-        if (arr[j] < pivot) {
+    while (true) {
+        while (i <= j && arr[i] <= pivot) {
             i++;
+        }
+
+        while (j >= i && arr[j] > pivot) {
+            j--;
+        }
+
+        if (i <= j) {
             swap(arr[i], arr[j]);
+        } else {
+            break;
         }
     }
-    swap(arr[i + 1], arr[high]);
-    return (i + 1);
+
+    swap(arr[low], arr[j]);
+    return j;
 }
 
-// Deterministic Quick Sort
+// Deterministic QuickSort
 void deterministicQuickSort(vector<int> &arr, int low, int high) {
     if (low < high) {
-        int pivot = partition(arr, low, high);
-        deterministicQuickSort(arr, low, pivot - 1);
-        deterministicQuickSort(arr, pivot + 1, high);
+        int pivotIndex = partition(arr, low, high);
+
+        deterministicQuickSort(arr, low, pivotIndex - 1);
+        deterministicQuickSort(arr, pivotIndex + 1, high);
     }
 }
 
-// Randomized Quick Sort
-int randomPartition(vector<int> &arr, int low, int high) {
-    int randomIndex = low + rand() % (high - low + 1);
-    swap(arr[randomIndex], arr[high]);
-    return partition(arr, low, high);
-}
-
+// Randomized QuickSort
 void randomizedQuickSort(vector<int> &arr, int low, int high) {
     if (low < high) {
-        int pivot = randomPartition(arr, low, high);
-        randomizedQuickSort(arr, low, pivot - 1);
-        randomizedQuickSort(arr, pivot + 1, high);
+        // Randomly choose pivot and swap with the first element
+        int randomIndex = low + rand() % (high - low + 1);
+        swap(arr[low], arr[randomIndex]);
+
+        int pivotIndex = partition(arr, low, high);
+
+        randomizedQuickSort(arr, low, pivotIndex - 1);
+        randomizedQuickSort(arr, pivotIndex + 1, high);
     }
 }
 
-// Function to print an array
-void printArray(const vector<int> &arr) {
+int main() {
+    srand(time(0)); // Seed for random number generation
+
+    // Example usage
+    vector<int> arr = {12, 4, -12, 5, 6, 7, 3, -8, 1, 15};
+
+    cout << "Original array: ";
     for (int num : arr) {
         cout << num << " ";
     }
     cout << endl;
-}
 
-int main() {
-    vector<int> arr = {12, 11, 13, 5, 6};
-    int n = arr.size();
+    // Applying Deterministic QuickSort
+    deterministicQuickSort(arr, 0, arr.size() - 1);
+    cout << "Array after deterministic QuickSort: ";
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
 
-    cout << "Original Array: ";
-    printArray(arr);
+    // Re-initialize the array
+    arr = {12, 4, -12, 5, 6, 7, 3, -8, 1, 15};
 
-    // Sorting using Deterministic Quick Sort
-    deterministicQuickSort(arr, 0, n - 1);
-    cout << "Array sorted using Deterministic Quick Sort: ";
-    printArray(arr);
-
-    // Resetting the array
-    arr = {12, 11, 13, 5, 6};
-
-    // Setting the random seed for the randomized version
-    srand(time(0));
-
-    // Sorting using Randomized Quick Sort
-    randomizedQuickSort(arr, 0, n - 1);
-    cout << "Array sorted using Randomized Quick Sort: ";
-    printArray(arr);
+    // Applying Randomized QuickSort
+    randomizedQuickSort(arr, 0, arr.size() - 1);
+    cout << "Array after randomized QuickSort: ";
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
 
     return 0;
 }
+
+// Best Case Time Complexity: O(n log n)
+// Average Case Time Complexity: O(n log n)
+// Worst Case Time Complexity: O(n^2) (with a low probability due to the randomized variant)
+// Space Complexity: O(1) +  O(log n) -> recursive stack

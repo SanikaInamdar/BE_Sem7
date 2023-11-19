@@ -5,17 +5,21 @@ using namespace std;
 #define N 8
 
 // Define the initial placement of the queen
-pair<int, int> placed = {0, 2};
+pair<int, int> placed = {2, 3};
 
 // Function to check if it's safe to place a queen at a given position
 bool isSafe(int board[N][N], int row, int col) {
   // Check the row on the left side
-  for (int i = 0; i < col; ++i) {
+  for (int i = 0; i < N; ++i) {
     if (board[row][i] == 1) {
       return false;
     }
   }
-
+  for (int i = 0; i < N; ++i) {
+    if (board[i][col] == 1) {
+      return false;
+    }
+  }
   // Check upper diagonal on the left side
   for (int i = row, j = col; i >= 0 && j >= 0; --i, --j) {
     if (board[i][j] == 1) {
@@ -32,6 +36,11 @@ bool isSafe(int board[N][N], int row, int col) {
 
   // Check upper diagonal on the right side
   for (int i = row, j = col; i >= 0 && j < N; --i, ++j) {
+    if (board[i][j] == 1) {
+      return false;
+    }
+  }
+  for (int i = row, j = col; i < N && j < N; ++i, ++j) {
     if (board[i][j] == 1) {
       return false;
     }
